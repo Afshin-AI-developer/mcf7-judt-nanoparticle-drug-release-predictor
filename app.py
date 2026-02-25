@@ -19,7 +19,7 @@ st.caption(
 # =========================
 # Load model (relative path)
 # =========================
-MODEL_PATH = Path(__file__).parent / "BEST_Model_DatasetThird.pkl"
+MODEL_PATH = Path(__file__).parent / "best_model_pipeline.pkl"
 
 @st.cache_resource
 def load_model():
@@ -49,3 +49,4 @@ X = np.array([[size, pdi, zeta, dlc, ee, temp, ph, time_h]], dtype=float)
 if st.button("Predict drug release (%)"):
     prediction = model.predict(X)[0]
     st.success(f"Predicted Drug release amount (%): {prediction:.2f}")
+
