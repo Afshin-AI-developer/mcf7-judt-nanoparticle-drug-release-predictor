@@ -3,20 +3,23 @@ import numpy as np
 import joblib
 from pathlib import Path
 
-st.set_page_config(page_title="MCF-7 Nanoparticle Drug Release Predictor", layout="centered")
+# =========================
+# Page config
+# =========================
+st.set_page_config(
+    page_title="MCF-7 Nanoparticle Drug Release Predictor",
+    layout="centered"
+)
 
 st.title("MCF-7 Nanoparticle Drug Release Predictor")
-st.caption("Predict drug release amount (%) from nanoparticle properties and release conditions (MCF-7 related dataset).")
+st.caption(
+    "Predict drug release amount (%) from nanoparticle properties and release conditions (MCF-7 related dataset)."
+)
 
-MODEL_PATH = from pathlib import Path
-import joblib
-import streamlit as st
-
+# =========================
+# Load model (relative path)
+# =========================
 MODEL_PATH = Path(__file__).parent / "BEST_Model_DatasetThird.pkl"
-
-@st.cache_resource
-def load_model():
-    return joblib.load(MODEL_PATH)
 
 @st.cache_resource
 def load_model():
@@ -24,6 +27,9 @@ def load_model():
 
 model = load_model()
 
+# =========================
+# Input section
+# =========================
 st.subheader("Input features")
 
 size = st.number_input("Size (DLS) of nanoparticle (nm)-mean", value=100.0)
@@ -37,7 +43,9 @@ time_h = st.number_input("Time of Drug release (h)", value=24.0)
 
 X = np.array([[size, pdi, zeta, dlc, ee, temp, ph, time_h]], dtype=float)
 
+# =========================
+# Prediction
+# =========================
 if st.button("Predict drug release (%)"):
-    pred = model.predict(X)[0]
-
-    st.success(f"Predicted Drug release amount (%): {pred:.2f}")
+    prediction = model.predict(X)[0]
+    st.success(f"Predicted Drug release amount (%): {prediction:.2f}")
