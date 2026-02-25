@@ -7,15 +7,14 @@ from pathlib import Path
 # Page config
 # =========================
 st.set_page_config(
-    page_title="MCF-7 Nanoparticle Drug Release Predictor",
+    page_title="MCF-7 Just-Nanoparticle-Based Drug Release Predictor",
     layout="centered"
 )
 
-st.title("MCF-7 Nanoparticle Drug Release Predictor")
+st.title("MCF-7 Just-Nanoparticle-Based Drug Release Predictor")
 st.caption(
-    "Predict drug release amount (%) from nanoparticle properties and release conditions (MCF-7 related dataset)."
+    "Predict drug release amount (%) from just nanoparticle properties and release conditions (MCF-7 related dataset)."
 )
-
 # =========================
 # Load model (relative path)
 # =========================
@@ -49,4 +48,5 @@ X = np.array([[size, pdi, zeta, dlc, ee, temp, ph, time_h]], dtype=float)
 if st.button("Predict drug release (%)"):
     prediction = model.predict(X)[0]
     st.success(f"Predicted Drug release amount (%): {prediction:.2f}")
+
 
